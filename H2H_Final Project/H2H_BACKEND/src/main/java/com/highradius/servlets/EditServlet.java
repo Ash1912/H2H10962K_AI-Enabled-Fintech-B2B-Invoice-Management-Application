@@ -1,54 +1,85 @@
 package com.highradius.servlets;
 
+import com.highradius.connection.DatabaseConnection;
+import com.highradius.implementation.InvoiceDaoImpl;
+import com.highradius.model.Invoice;
+
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.highradius.crud.Crud;
-import com.highradius.model.Invoice;
-
-/**
- * Servlet implementation class EditServlet
- */
 @WebServlet("/EditServlet")
 public class EditServlet extends HttpServlet {
-	Invoice invoice = null;
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+
+    private static final long serialVersionUID = 4674127683867288331L;
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Invoice invoiceObject = new Invoice();
-        
-        String ORDERCURRENCY=request.getParameter("ORDER_CURRENCY");
-        String COMPANYCODE=request.getParameter("COMPANY_CODE");
-        String DISTRIBUTIONCHANNEL=request.getParameter("DISTRIBUTION_CHANNEL");
-        String sl_no=request.getParameter("Sl_No");        
-        
-        invoiceObject.setORDER_CURRENCY(ORDERCURRENCY);
-        invoiceObject.setCOMPANY_CODE(Integer.parseInt(COMPANYCODE));
-        invoiceObject.setDISTRIBUTION_CHANNEL(DISTRIBUTIONCHANNEL);
-        invoiceObject.setSl_No(Integer.parseInt(sl_no));
-        Crud crudObject = new Crud();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        String slno = req.getParameter("slno");
+        String customerOrderId = req.getParameter("customerOrderId");
+        String salesOrg = req.getParameter("salesOrg");
+        String distributionChannel = req.getParameter("distributionChannel");
+        String customerNumber = req.getParameter("customerNumber");
+        String companyCode = req.getParameter("companyCode");
+        String orderCurrency = req.getParameter("orderCurrency");
+        String amountInUSD = req.getParameter("amountInUsd");
+        String orderCreationDate = req.getParameter("orderCreationDate");
+
+        Invoice invoice = new Invoice();
+        invoice.setslno(slno);
+        invoice.setCustomer_order_id(customerOrderId);
+        invoice.setSales_org(salesOrg);
+        invoice.setDistribution_channel(distributionChannel);
+        invoice.setCustomer_number(customerNumber);
+        invoice.setCompany_code(companyCode);
+        invoice.setOrder_currency(orderCurrency);
+        invoice.setAmount_in_usd(amountInUSD);
+        invoice.setOrder_creation_date(orderCreationDate);
+
         try {
-			Crud.createConnection();
-		} 
-        catch (Exception e) {			
-			e.printStackTrace();
-		}
-        int statusCode = crudObject.editData(invoiceObject);
-        System.out.println("Edit Servlet Status: "+ statusCode);        
-	}
+            InvoiceDaoImpl dao = new InvoiceDaoImpl(DatabaseConnection.con());
+            boolean isUpdated = dao.edit(invoice);
+
+            if (isUpdated) {
+                resp.setStatus(HttpServletResponse.SC_OK); // return 200
+                resp.getWriter().write("EDITED SUCCESSFULLY"); // write a success message in the response body
+                System.out.println("Data edited successfully");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // return 400
+                resp.getWriter().write("UNSUCCESSFUL"); // write an error message in the response body
+                System.out.println("Error occurred while editing data");
+            }        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(invoice);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    }
 }

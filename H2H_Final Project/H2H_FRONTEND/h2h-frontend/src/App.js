@@ -1,12 +1,16 @@
-import "./App.css";
-import Header from "./components/Header";
-import Grid from "./components/Grid";
+import Header from "./components/Header.js";
+import Footer from "./components/Footer.js";
+
+import HomePage from "./components/HomePage";
+
 function App() {
   return (
-    <div>
+    <div className="App">
       <Header />
-      <Grid />
+      <HomePage />
+      <Footer />
     </div>
   );
 }
+
 export default App;

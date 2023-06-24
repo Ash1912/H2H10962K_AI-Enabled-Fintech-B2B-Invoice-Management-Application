@@ -1,88 +1,85 @@
 package com.highradius.servlets;
 
+import com.highradius.connection.DatabaseConnection;
+import com.highradius.implementation.InvoiceDaoImpl;
+import com.highradius.model.Invoice;
+
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.highradius.implementation.InvoiceDao;
-import com.highradius.implementation.InvoiceDaoImpl;
-import com.highradius.model.Invoice;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/AddServlet")
 public class AddServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	private InvoiceDao invoiceDao;
-       
 
-    public AddServlet() {
-        super();
+    private static final long serialVersionUID = 4674127683867288331L;
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
-	public void init() {
-		
-		invoiceDao = new InvoiceDaoImpl();	
-		
-	}
-	
-	public void addInvoice(Invoice invoice) {
-        invoiceDao.insertInvoice(invoice);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Integer sl_no = Integer.parseInt(request.getParameter("SL"));
-	    Integer customer_order_id = Integer.parseInt(request.getParameter("cust_ord_id"));
-	    Integer sales_org = Integer.parseInt(request.getParameter("sal_org"));
-	    String distribution_channel = request.getParameter("dist_channel");
-	    String division = request.getParameter("div");
-	    Double released_credit_value = Double.parseDouble(request.getParameter("rc_val"));
-	    String purchase_order_type = request.getParameter("p_o_t");
-	    Integer company_code = Integer.parseInt(request.getParameter("comp_code"));
-	    String order_creation_date = request.getParameter("oc_date");
-	    String order_creation_time = request.getParameter("oc_time");
-	    String credit_control_area = request.getParameter("cc_area");
-	    Integer sold_to_party = Integer.parseInt(request.getParameter("sold_party"));
-	    Double order_amount = Double.parseDouble(request.getParameter("ord_amt"));
-	    String requested_delivery_date = request.getParameter("rd_date");
-	    String order_currency = request.getParameter("ord_curr");
-	    String credit_status = request.getParameter("cre_sta");
-	    Integer customer_number = Integer.parseInt(request.getParameter("cust_num"));
-	    Double amount_in_usd = Double.parseDouble(request.getParameter("amt_usd"));
-	    Long unique_cust_id = Long.parseLong(request.getParameter("u_cust_id"));
-	    
-	    Invoice invoice = new Invoice();
-        invoice.setSl_No(sl_no);
-        invoice.setCUSTOMER_ORDER_ID(customer_order_id);
-        invoice.setSALES_ORG(sales_org);
-        invoice.setDISTRIBUTION_CHANNEL(distribution_channel);
-        invoice.setDIVISION(division);
-        invoice.setRELEASED_CREDIT_VALUE(released_credit_value);
-        invoice.setPURCHASE_ORDER_TYPE(purchase_order_type);
-        invoice.setCOMPANY_CODE(company_code);
-        invoice.setORDER_CREATION_DATE(order_creation_date);
-        invoice.setORDER_CREATION_TIME(order_creation_time);
-        invoice.setCREDIT_CONTROL_AREA(credit_control_area);
-        invoice.setSOLD_TO_PARTY(sold_to_party);
-        invoice.setORDER_AMOUNT(order_amount);
-        invoice.setREQUESTED_DELIVERY_DATE(requested_delivery_date);
-        invoice.setORDER_CURRENCY(order_currency);
-        invoice.setCREDIT_STATUS(credit_status);
-        invoice.setCUSTOMER_NUMBER(customer_number);
-        invoice.setAMOUNT_IN_USD(amount_in_usd);
-        invoice.setUNIQUE_CUST_ID(unique_cust_id);
-        
-        
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+
+        String customerOrderId = req.getParameter("customerOrderId");
+        String salesOrg = req.getParameter("salesOrg");
+        String distributionChannel = req.getParameter("distributionChannel");
+        String customerNumber = req.getParameter("customerNumber");
+        String companyCode = req.getParameter("companyCode");
+        String orderCurrency = req.getParameter("orderCurrency");
+        String amountInUSD = req.getParameter("amountInUsd");
+        String orderCreationDate = req.getParameter("orderCreationDate");
+
+
+        Invoice invoice = new Invoice();
+        invoice.setCustomer_order_id(customerOrderId);
+        invoice.setSales_org(salesOrg);
+        invoice.setDistribution_channel(distributionChannel);
+        invoice.setCustomer_number(customerNumber);
+        invoice.setCompany_code(companyCode);
+        invoice.setOrder_currency(orderCurrency);
+        invoice.setAmount_in_usd(amountInUSD);
+        invoice.setOrder_creation_date(orderCreationDate);
+
         try {
-        	addInvoice(invoice);
-        }catch(Exception e) {
-        	e.printStackTrace();
+            InvoiceDaoImpl dao = new InvoiceDaoImpl(DatabaseConnection.con());
+            boolean isAdded = dao.add(invoice);
+
+            if (isAdded) {
+                resp.setStatus(HttpServletResponse.SC_OK); // return 200
+                resp.getWriter().write("ADDED SUCCESSFULLY"); // write a success message in the response body
+                System.out.println("Data inserted successfully");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // return 400
+                resp.getWriter().write("UNSUCCESSFUL"); // write an error message in the response body
+                System.out.println("Error occurred while inserting data");
+            }        } catch (SQLException e) {
+            e.printStackTrace();
         }
-	       
 
-	}
+        System.out.println(invoice);
+    }
 
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    }
 }

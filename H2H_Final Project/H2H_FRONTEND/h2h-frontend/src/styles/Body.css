@@ -1,0 +1,186 @@
+.MuiTablePagination-root {
+    color: white;
+}
+
+.body-header {
+    height: 5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.body-container {
+    margin: 1em 0;
+}
+
+.btn-inactive {
+    cursor: pointer;
+    display: inline-block;
+    padding: 1em;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.btn-active {
+    font-weight: bold;
+    display: inline-block;
+    padding: 1em;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 2px solid white;
+}
+
+.btn-search {
+    display: none;
+
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.clear-btn {
+    cursor: pointer;
+    width: 8em;
+    background-color: #db4437;
+    height: 3em;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.clear-btn-inactive {
+    cursor: pointer;
+    display: none;
+    width: 8em;
+    background-color: #db4437;
+    height: 3em;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.advanced-btn {
+    cursor: pointer;
+    width: 8em;
+    height: 3em;
+    position: relative;
+    bottom: 0.6em;
+    background-color: #8fd163;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.advanced-btn-inactive {
+    display: none;
+    cursor: pointer;
+    width: 8em;
+    height: 3em;
+    position: relative;
+    bottom: 0.6em;
+    background-color: #8fd163;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.body-container {
+    padding: 1em;
+    background-color: #666666;
+}
+
+.searchbox {
+    margin: 0 1em;
+    text-align: center;
+    padding: none;
+    height: 3em;
+    border: none;
+    border-radius: 5px;
+}
+
+.datagrid-footer {
+    border: none;
+    color: white;
+}
+
+.dialog-input {
+    padding: 1em;
+    width: stretch;
+}
+
+.dialog-btn {
+    padding: 0.5em;
+    width: 100%;
+}
+
+.edit-input {
+    padding: 0.5em;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #575757;
+    border-radius: 6px;
+}
+
+/* For Firefox */
+::-moz-scrollbar {
+    width: 12px;
+    border-radius: 6px;
+}
+
+::-moz-scrollbar-track {
+    background-color: transparent;
+}
+
+::-moz-scrollbar-thumb {
+    background-color: #575757;
+    border-radius: 6px;
+}
+
+/* For IE, Edge, and Opera */
+/* Note: IE and Edge use the same scrollbar styles */
+body.ms-scrollbar::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 6px;
+}
+
+body.ms-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+body.ms-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #575757;
+    border-radius: 6px;
+}
+
+.MuiDataGrid-footerContainer {
+    border: none !important;
+}
+
+.MuiTablePagination-root {
+    color: rgb(255, 255, 255) !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-window {
+    overflow-y: hidden !important;
+}
+
+.MuiDialog-paper {
+    border: 5px solid #fc7500 !important;
+    border-radius: 10px !important;
+}
+
+.adv-dialog {
+    border: 5px solid greenyellow !important;
+}

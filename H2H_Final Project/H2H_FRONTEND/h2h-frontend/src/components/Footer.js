@@ -1,16 +1,16 @@
 import React from "react";
-import "./Footer.css";
-import CopyrightIcon from "@material-ui/icons/Copyright";
 
-function Footer() {
+const Footer = () => {
   return (
-    <div className="link">
-      <span className="footer-text">
-        <a href="https://pluralsight.com">Privacy Policy</a> |
-        <CopyrightIcon style={{ fontSize: 15 }} />
-        2023 HighRadius Corporation.All rights reserved.
-      </span>
+    <div className="Footer">
+      <h6>
+        <a href="./" className="privacy">
+          Privacy Policy
+        </a>{" "}
+        | @ 2023 HighRadius Corporation. All rights reserved.
+      </h6>
     </div>
   );
-}
+};
+
 export default Footer;

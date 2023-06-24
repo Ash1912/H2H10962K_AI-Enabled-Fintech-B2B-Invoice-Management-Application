@@ -1,141 +1,194 @@
 package com.highradius.implementation;
-import com.highradius.connection.DatabaseConnection;
-import com.highradius.model.Invoice;
 
-import java.sql.Connection;
+import java.sql.Connection; 
+import java.sql.PreparedStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvoiceDaoImpl implements InvoiceDao {
+import com.highradius.model.Invoice;
+import com.mysql.cj.xdevapi.PreparableStatement;
 
-	@Override
-	public List<Invoice> getInvoices() {
-		List<Invoice> invoices = new ArrayList<>();
-
-        try (Connection connection = DatabaseConnection.con();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM h2h_intern.h2h_oap");
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                Invoice invoice = new Invoice();
-                invoice.setSl_No(resultSet.getInt("sl_no"));
-                invoice.setCUSTOMER_ORDER_ID(resultSet.getInt("CUSTOMER_ORDER_ID"));
-                invoice.setSALES_ORG(resultSet.getInt("SALES_ORG"));
-                invoice.setDISTRIBUTION_CHANNEL(resultSet.getString("DISTRIBUTION_CHANNEL"));
-                invoice.setDIVISION(resultSet.getString("DIVISION"));
-                invoice.setRELEASED_CREDIT_VALUE(resultSet.getDouble("RELEASED_CREDIT_VALUE"));
-                invoice.setPURCHASE_ORDER_TYPE(resultSet.getString("PURCHASE_ORDER_TYPE"));
-                invoice.setCOMPANY_CODE(resultSet.getInt("COMPANY_CODE"));
-                invoice.setORDER_CREATION_DATE(resultSet.getString("ORDER_CREATION_DATE"));
-                invoice.setORDER_CREATION_TIME(resultSet.getString("ORDER_CREATION_TIME"));
-                invoice.setCREDIT_CONTROL_AREA(resultSet.getString("CREDIT_CONTROL_AREA"));
-                invoice.setSOLD_TO_PARTY(resultSet.getInt("SOLD_TO_PARTY"));
-                invoice.setORDER_AMOUNT(resultSet.getDouble("ORDER_AMOUNT"));
-                invoice.setREQUESTED_DELIVERY_DATE(resultSet.getString("REQUESTED_DELIVERY_DATE"));
-                invoice.setORDER_CURRENCY(resultSet.getString("ORDER_CURRENCY"));
-                invoice.setCREDIT_STATUS(resultSet.getString("CREDIT_STATUS"));
-                invoice.setCUSTOMER_NUMBER(resultSet.getInt("CUSTOMER_NUMBER"));
-                invoice.setAMOUNT_IN_USD(resultSet.getDouble("AMOUNT_IN_USD"));
-                invoice.setUNIQUE_CUST_ID(resultSet.getLong("UNIQUE_CUST_ID"));
-
-                invoices.add(invoice);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return invoices;
+@SuppressWarnings("unused")
+public class InvoiceDaoImpl {
+	private Connection con;
+	
+	public InvoiceDaoImpl(Connection con) {
+		super();
+		this.con=con;
 	}
-
-	@Override
-	public void insertInvoice(Invoice invoice) {
-		try (Connection connection = DatabaseConnection.con();
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO h2h_oap (sl_no, CUSTOMER_ORDER_ID, SALES_ORG, " +
-                        "DISTRIBUTION_CHANNEL, DIVISION, RELEASED_CREDIT_VALUE, PURCHASE_ORDER_TYPE, COMPANY_CODE, " +
-                        "ORDER_CREATION_DATE, ORDER_CREATION_TIME, CREDIT_CONTROL_AREA, SOLD_TO_PARTY, ORDER_AMOUNT, " +
-                        "REQUESTED_DELIVERY_DATE, ORDER_CURRENCY, CREDIT_STATUS, CUSTOMER_NUMBER, AMOUNT_IN_USD, UNIQUE_CUST_ID) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-
-               statement.setInt(1, invoice.getSl_No());
-               statement.setInt(2, invoice.getCUSTOMER_ORDER_ID());
-               statement.setInt(3, invoice.getSALES_ORG());
-               statement.setString(4, invoice.getDISTRIBUTION_CHANNEL());
-               statement.setString(5, invoice.getDIVISION());
-               statement.setDouble(6, invoice.getRELEASED_CREDIT_VALUE());
-               statement.setString(7, invoice.getPURCHASE_ORDER_TYPE());
-               statement.setInt(8, invoice.getCOMPANY_CODE());
-               statement.setString(9, invoice.getORDER_CREATION_DATE());
-               statement.setString(10, invoice.getORDER_CREATION_TIME());
-               statement.setString(11, invoice.getCREDIT_CONTROL_AREA());
-               statement.setInt(12, invoice.getSOLD_TO_PARTY());
-               statement.setDouble(13, invoice.getORDER_AMOUNT());
-               statement.setString(14, invoice.getREQUESTED_DELIVERY_DATE());
-               statement.setString(15, invoice.getORDER_CURRENCY());
-               statement.setString(16, invoice.getCREDIT_STATUS());
-               statement.setInt(17, invoice.getCUSTOMER_NUMBER());
-               statement.setDouble(18, invoice.getAMOUNT_IN_USD());
-               statement.setLong(19, invoice.getUNIQUE_CUST_ID());
-
-               statement.executeUpdate();
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
+	
+	public boolean add(Invoice inv) {
+		boolean f = false;
+		try {
+			String sql = "insert into h2h_oap(Sl_no,CUSTOMER_ORDER_ID,SALES_ORG,DISTRIBUTION_CHANNEL,DIVISION,RELEASED_CREDIT_VALUE,PURCHASE_ORDER_TYPE,COMPANY_CODE,ORDER_CREATION_DATE,ORDER_CREATION_TIME,CREDIT_CONTROL_AREA,SOLD_TO_PARTY,ORDER_AMOUNT,REQUESTED_DELIVERY_DATE,ORDER_CURRENCY,CREDIT_STATUS,CUSTOMER_NUMBER,AMOUNT_IN_USD,UNIQUE_CUST_ID) values (0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setString(1, inv.getCustomer_order_id());
+			ps.setString(2, inv.getSales_org());
+			ps.setString(3, inv.getDistribution_channel());
+			ps.setString(4, inv.getDivision());
+			ps.setString(5, inv.getReleased_credit_value());
+			ps.setString(6, inv.getPurchase_order_type());
+			ps.setString(7, inv.getCompany_code());
+			ps.setString(8, inv.getOrder_creation_date());
+			ps.setString(9, inv.getOrder_creation_time());
+			ps.setString(10, inv.getCredit_control_area());
+			ps.setString(11, inv.getSold_to_party());
+			ps.setString(12, inv.getOrder_amount());
+			ps.setString(13, inv.getRequested_delivery_date());
+			ps.setString(14, inv.getOrder_currency());
+			ps.setString(15, inv.getCredit_status());
+			ps.setString(16, inv.getCustomer_number());
+			ps.setString(17, inv.getAmount_in_usd());
+			ps.setString(18, inv.getUnique_cust_id());
+			
+		
+			
+			int i = ps.executeUpdate();
+			if (i==1) {
+				f=true;
+			}
+		   
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+	
+	public List<Invoice> get20Invoice(){
+		List<Invoice> list = new ArrayList<Invoice>();
+		Invoice inv = null;
+		try {
+		
+			String sql = "select * from h2h_oap limit 6";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				inv = new Invoice();
+				inv.setslno(rs.getString(1));
+				inv.setCustomer_order_id(rs.getString(2));
+				inv.setSales_org(rs.getString(3));
+				inv.setDistribution_channel(rs.getString(4));
+				inv.setDivision(rs.getString(5));
+				inv.setReleased_credit_value(rs.getString(6));
+				inv.setPurchase_order_type(rs.getString(7));
+				inv.setCompany_code(rs.getString(8));
+				inv.setOrder_creation_date(rs.getString(9));
+				inv.setOrder_creation_time(rs.getString(10));
+				inv.setCredit_control_area(rs.getString(11));
+				inv.setSold_to_party(rs.getString(12));
+				inv.setOrder_amount(rs.getString(13));
+				inv.setRequested_delivery_date(rs.getString(14));
+				inv.setOrder_currency(rs.getString(15));
+				inv.setCredit_status(rs.getString(16));
+				inv.setCustomer_number(rs.getString(17));
+				inv.setAmount_in_usd(rs.getString(18));
+				inv.setUnique_cust_id(rs.getString(19));
+				list.add(inv);					
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 		
 	}
-
-	@Override
-	public void updateInvoice(Integer sl_no, Invoice invoice) {
-		try (Connection connection = DatabaseConnection.con();
-	             PreparedStatement statement = connection.prepareStatement("UPDATE h2h_oap SET " +
-	                     "CUSTOMER_ORDER_ID = ?, SALES_ORG = ?, DISTRIBUTION_CHANNEL = ?, DIVISION = ?, " +
-	                     "RELEASED_CREDIT_VALUE = ?, PURCHASE_ORDER_TYPE = ?, COMPANY_CODE = ?, " +
-	                     "ORDER_CREATION_DATE = ?, ORDER_CREATION_TIME = ?, CREDIT_CONTROL_AREA = ?, " +
-	                     "SOLD_TO_PARTY = ?, ORDER_AMOUNT = ?, REQUESTED_DELIVERY_DATE = ?, " +
-	                     "ORDER_CURRENCY = ?, CREDIT_STATUS = ?, CUSTOMER_NUMBER = ?, AMOUNT_IN_USD = ?, " +
-	                     "UNIQUE_CUST_ID = ? WHERE sl_no = ?")) {
-
-	            statement.setInt(1, invoice.getCUSTOMER_ORDER_ID());
-	            statement.setInt(2, invoice.getSALES_ORG());
-	            statement.setString(3, invoice.getDISTRIBUTION_CHANNEL());
-	            statement.setString(4, invoice.getDIVISION());
-	            statement.setDouble(5, invoice.getRELEASED_CREDIT_VALUE());
-	            statement.setString(6, invoice.getPURCHASE_ORDER_TYPE());
-	            statement.setInt(7, invoice.getCOMPANY_CODE());
-	            statement.setString(8, invoice.getORDER_CREATION_DATE());
-	            statement.setString(9, invoice.getORDER_CREATION_TIME());
-	            statement.setString(10, invoice.getCREDIT_CONTROL_AREA());
-	            statement.setInt(11, invoice.getSOLD_TO_PARTY());
-	            statement.setDouble(12, invoice.getORDER_AMOUNT());
-	            statement.setString(13, invoice.getREQUESTED_DELIVERY_DATE());
-	            statement.setString(14, invoice.getORDER_CURRENCY());
-	            statement.setString(15, invoice.getCREDIT_STATUS());
-	            statement.setInt(16, invoice.getCUSTOMER_NUMBER());
-	            statement.setDouble(17, invoice.getAMOUNT_IN_USD());
-	            statement.setLong(18, invoice.getUNIQUE_CUST_ID());
-	            statement.setInt(19, sl_no);
-
-	            statement.executeUpdate();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+	
+	public Invoice getInvoiceById(String slno) {
 		
+		Invoice inv = null;
+		try {
+		
+			String sql = "select * from h2h_oap where Sl_no = ? ";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, slno);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				inv = new Invoice();
+				inv.setslno(rs.getString(1));
+				inv.setCustomer_order_id(rs.getString(2));
+				inv.setSales_org(rs.getString(3));
+				inv.setDistribution_channel(rs.getString(4));
+				inv.setDivision(rs.getString(5));
+				inv.setReleased_credit_value(rs.getString(6));
+				inv.setPurchase_order_type(rs.getString(7));
+				inv.setCompany_code(rs.getString(8));
+				inv.setOrder_creation_date(rs.getString(9));
+				inv.setOrder_creation_time(rs.getString(10));
+				inv.setCredit_control_area(rs.getString(11));
+				inv.setSold_to_party(rs.getString(12));
+				inv.setOrder_amount(rs.getString(13));
+				inv.setRequested_delivery_date(rs.getString(14));
+				inv.setOrder_currency(rs.getString(15));
+				inv.setCredit_status(rs.getString(16));
+				inv.setCustomer_number(rs.getString(17));
+				inv.setAmount_in_usd(rs.getString(18));
+				inv.setUnique_cust_id(rs.getString(19));
+									
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return inv;
 	}
+	
+	
+	public boolean edit(Invoice inv) {
+	    boolean f = false;
+	    try {
+	        String sql = "update h2h_oap set CUSTOMER_ORDER_ID=? ,SALES_ORG=? ,DISTRIBUTION_CHANNEL=?,COMPANY_CODE=?,ORDER_CURRENCY=?,AMOUNT_IN_USD=?,ORDER_CREATION_DATE=? where Sl_no=?";
 
-	@Override
-	public void deleteInvoice(Integer sl_no) {
-		try (Connection connection = DatabaseConnection.con();
-	             PreparedStatement statement = connection.prepareStatement("DELETE FROM h2h_oap WHERE sl_no = ?")) {
+	        PreparedStatement ps = con.prepareStatement(sql);
 
-	            statement.setInt(1, sl_no);
-	            statement.executeUpdate();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
+	        ps.setString(1, inv.getCustomer_order_id());
+	        ps.setString(2, inv.getSales_org());
+	        ps.setString(3, inv.getDistribution_channel());
+	        ps.setString(4, inv.getCompany_code());
+	        ps.setString(5, inv.getOrder_currency());
+	        ps.setString(6, inv.getAmount_in_usd());
+	        ps.setString(7, inv.getOrder_creation_date());
+	        ps.setString(8, inv.getslno());
+
+	        int i = ps.executeUpdate();
+	        if (i==1) {
+	            f=true;
 	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
-		
+	    return f;
 	}
 
-   
+	
+	
+	
+	
+	
+	
+	
+	public boolean delete(String id) {
+		System.out.println(id);
+		boolean f =false;
+		try {
+			String sql = "delete from h2h_oap where Sl_no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			int i = ps.executeUpdate();
+			if (i==1) {
+				f=true;
+				System.out.println("deleted");				
+			}else {
+				System.out.println("error");
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+}

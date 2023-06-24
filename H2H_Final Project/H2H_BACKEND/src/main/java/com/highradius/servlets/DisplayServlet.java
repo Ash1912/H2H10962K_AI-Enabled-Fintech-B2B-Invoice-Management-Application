@@ -1,8 +1,13 @@
 package com.highradius.servlets;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,56 +15,80 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.highradius.crud.Crud;
-import com.highradius.model.Invoice;
 import com.google.gson.Gson;
+import com.highradius.model.Invoice;
 
-/**
- * Servlet implementation class DisplayServlet
- */
-@WebServlet("/DisplayServlet")
+
+
 public class DisplayServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
 
     /**
-     * Default constructor. 
-     */
-    public DisplayServlet() {
-        // TODO Auto-generated constructor stub
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public DisplayServlet() {
+        super();
+  
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
-		response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        Crud crudObject = new Crud();
-        ArrayList<Invoice> listInvoice = null;
-        try {
-			Crud.createConnection();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		 response.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+	     response.setHeader("Access-Control-Allow-Methods", "GET"); // Allow only GET requests
+	     response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allow only Content-Type header
+		PrintWriter out = response.getWriter();
+		List<Invoice> list = new ArrayList<Invoice>();
+		Invoice inv = null;
+		try {
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/h2h_intern", "root", "C_20051685");
+		
+			String sql = "select * from h2h_oap limit 10000 ";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				inv = new Invoice();
+				inv.setslno(rs.getString(1));
+				inv.setCustomer_order_id(rs.getString(2));
+				inv.setSales_org(rs.getString(3));
+				inv.setDistribution_channel(rs.getString(4));
+				inv.setDivision(rs.getString(5));
+				inv.setReleased_credit_value(rs.getString(6));
+				inv.setPurchase_order_type(rs.getString(7));
+				inv.setCompany_code(rs.getString(8));
+				inv.setOrder_creation_date(rs.getString(9));
+				inv.setOrder_creation_time(rs.getString(10));
+				inv.setCredit_control_area(rs.getString(11));
+				inv.setSold_to_party(rs.getString(12));
+				inv.setOrder_amount(rs.getString(13));
+				inv.setRequested_delivery_date(rs.getString(14));
+				inv.setOrder_currency(rs.getString(15));
+				inv.setCredit_status(rs.getString(16));
+				inv.setCustomer_number(rs.getString(17));
+				inv.setAmount_in_usd(rs.getString(18));
+				inv.setUnique_cust_id(rs.getString(19));
+				list.add(inv);
+				
+			}
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-        try {
-        	listInvoice = crudObject.DisplayData();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
-        PrintWriter out = response.getWriter();
-        Gson gsonObject = new Gson();
-        String jsonData = gsonObject.toJson(listInvoice);
-        out.print(jsonData);
+		
+        System.out.println("yay checking3");
+		String json = new Gson().toJson(list);
+		out.print(json);
+		 out.flush();
+		
+		
+ 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
+		doGet(request, response);
 	}
 
 }

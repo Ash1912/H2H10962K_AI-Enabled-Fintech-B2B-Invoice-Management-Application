@@ -1,77 +1,99 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.highradius.model.Invoice"%>
+<%@page import="java.util.List"%>
+<%@page import="com.highradius.implementation.InvoiceDaoImpl"%>
+<%@page import="com.highradius.connection.DatabaseConnection"%>
+<%@page import="java.sql.Connection"%>
+<%@ page isErrorPage="true" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>HighRadius 2023 - Invoice Management</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f7f7f7;
-        margin: 20px;
-    }
-
-    h1 {
-        text-align: center;
-        color: #555555;
-        margin-bottom: 20px;
-    }
-
-    form {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: inline-block;
-        width: 150px;
-        margin-bottom: 10px;
-    }
-
-    input[type="text"],
-    input[type="number"] {
-        padding: 8px;
-        width: 250px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    input[type="submit"] {
-        padding: 8px 20px;
-        background-color: #4CAF50;
-        color: #ffffff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    input[type="submit"]:hover {
-        background-color: #45a049;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>CRUD Operations</title>
+    <%@include file="bootstrap.jsp"%>
+ <style>
+ table td{
+  text-align: center;
+  vertical-align: middle;
+ }
+ </style>
 </head>
 <body>
-<h1>HighRadius 2023 - Invoice Management</h1>
-<h1><%= "CRUD Application" %>
-</h1>
-<br/>
-<a href="InsertServlet">Insert Record</a><br>
-<form action="<%= request.getContextPath() %>/DisplayServlet" method="get">
-<a href="DisplayServlet">Display Record</a>
-    <input type="submit" value="Submit" />
-</form>
-<form action="<%= request.getContextPath() %>/AnalyticsServlet" method="post">
-<a href="AnalyticsServlet">Analytics</a>
-    <input type="submit" value="Submit" />
-</form>
+   <%@include file="navbar.jsp" %>
+   <%
+   Connection conn = DatabaseConnection.con();
+   out.print(conn);
+   %>
 
-
-<a href="DeleteServlet">Delete Record</a><br>
-<a href="EditServlet">Edit Record</a><br>
-<a href="AdvancedSearch.jsp">Perform Advanced Search on Records</a><br>
-
+ <div class='box-content p-5' style = "overflow-x: scroll;">
+    <table class="table">
+  <thead>
+    <tr>
+    
+  <th scope="col">SL.NO</th>
+      <th scope="col">CUSTOMER_ORDER_ID</th>
+      <th scope="col">SALES_ORG</th>
+      <th scope="col">DISTRIBUTION_CHANNEL</th>
+      <th scope="col">DIVISION</th>
+      <th scope="col">RELEASED_CREDIT_VALUE</th>
+      <th scope="col">PURCHASE_ORDER_TYPE</th>
+  	  <th scope="col">COMPANY_CODE</th>
+  	  <th scope="col">ORDER_CREATION_DATE</th>
+  	  <th scope="col">ORDER_CREATION_TIME</th>
+      <th scope="col">CREDIT_CONTROL_AREA</th>
+      <th scope="col">SOLD_TO_PARTY</th>
+      <th scope="col">ORDER_AMOUNT</th>
+<th scope="col">REQUESTED_DELIVERY_DATE</th>
+   	  <th scope="col">ORDER_CURRENCY</th>
+ 	  <th scope="col">CREDIT_STATUS</th>
+      <th scope="col">CUSTOMER_NUMBER</th>
+ 	  <th scope="col">AMOUNT_IN_USD</th>
+ 	  <th scope="col">UNIQUE_CUST_ID</th>
+ 	  <th scope="col">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%
+  InvoiceDaoImpl dao = new InvoiceDaoImpl(DatabaseConnection.con());
+  List<Invoice> list = dao.get20Invoice();
+  for(Invoice inv : list){
+	  %>
+	 <tr>
+	  <td><%=inv.getslno() %></td>
+      <td><%=inv.getCustomer_order_id() %></td>
+      <td><%=inv.getSales_org() %></td>
+      <td><%=inv.getDistribution_channel() %></td>
+      <td><%=inv.getDivision() %></td>
+      <td><%=inv.getReleased_credit_value() %></td>
+      <td><%=inv.getPurchase_order_type() %></td>
+      <td><%=inv.getCompany_code() %></td>
+      <td><%=inv.getOrder_creation_date() %></td>
+      <td><%=inv.getOrder_creation_time() %></td>
+      <td><%=inv.getCredit_control_area() %></td>
+      <td><%=inv.getSold_to_party() %></td>
+      <td><%=inv.getOrder_amount() %></td>
+      <td><%=inv.getRequested_delivery_date() %></td>
+      <td><%=inv.getOrder_currency() %></td>
+      <td><%=inv.getCredit_status() %></td>
+      <td><%=inv.getCustomer_number() %></td>
+      <td><%=inv.getAmount_in_usd() %></td>
+      <td><%=inv.getUnique_cust_id() %></td>
+      <td><a href="EditData.jsp?slno= <%=inv.getslno() %>" class="btn btn-sm btn-primary">Edit</a>
+      <a href="DeleteServlet?slno= <%=inv.getslno() %>" class="btn btn-sm btn-danger">Delete</a>
+      </td>
+    
+    </tr>
+	  
+	  <%
+  }
+  
+  %>
+    
+   
+  </tbody>
+</table>
+</div>
+  
 </body>
 </html>

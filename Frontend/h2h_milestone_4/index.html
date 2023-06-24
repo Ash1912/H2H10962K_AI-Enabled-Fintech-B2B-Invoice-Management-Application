@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Table 1 */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        text-align: center;
+        padding: 8px;
+        border: 2px solid #000000;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #f9f9f9;
+      }
+
+      tr:nth-child(even) {
+        background-color: #ddd;
+      }
+
+      th {
+        background-color: lightgreen;
+      }
+
+      /* Table 2 */
+      #Table2 {
+        font-family: "Comic Sans MS", cursive;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #Table2 td {
+        border: 1px solid #29c55d;
+        text-align: center;
+        padding: 3px;
+      }
+
+      #Table2 th {
+        border: 1px solid #4dc3fe;
+        text-align: center;
+        padding: 3px;
+      }
+
+      #Table2 tr:nth-child(odd) {
+        background-color: #fffefe;
+      }
+
+      #Table2 th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4dc3fe;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Table 1 -->
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No</th>
+          <th>Customer Order id</th>
+          <th>Sales Org</th>
+          <th>Distribution Channel</th>
+          <th>Company Code</th>
+          <th>Order Creating Date</th>
+          <th>Order Amount</th>
+          <th>Order Currency</th>
+          <th>Customer Number</th>
+          <th>Amount in USD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>963432061</td>
+          <td>3449</td>
+          <td>Martinique</td>
+          <td>3220</td>
+          <td>01-01-2022</td>
+          <td>787.36</td>
+          <td>EUR</td>
+          <td>12311807</td>
+          <td>892.525</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>971991639</td>
+          <td>3238</td>
+          <td>Moldova</td>
+          <td>3260</td>
+          <td>01-01-2022</td>
+          <td>67493.46</td>
+          <td>EUR</td>
+          <td>12118758</td>
+          <td>76508.336</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>754349803</td>
+          <td>3911</td>
+          <td>United Arab Emirates</td>
+          <td>3290</td>
+          <td>01-01-2022</td>
+          <td>1405.54</td>
+          <td>EUR</td>
+          <td>1210499770</td>
+          <td>1593.273</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>930253442</td>
+          <td>2381</td>
+          <td>Greece</td>
+          <td>3290</td>
+          <td>01-01-2022</td>
+          <td>0</td>
+          <td>EUR</td>
+          <td>1210351400</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>819741436</td>
+          <td>3605</td>
+          <td>Argentina</td>
+          <td>3290</td>
+          <td>01-01-2022</td>
+          <td>1065.33</td>
+          <td>EUR</td>
+          <td>1210124309</td>
+          <td>1207.62</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>881355361</td>
+          <td>3645</td>
+          <td>Armenia</td>
+          <td>3470</td>
+          <td>02-01-2022</td>
+          <td>302.85</td>
+          <td>EUR</td>
+          <td>12311152</td>
+          <td>343.593</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Table 2 -->
+    <p style="text-align: center">
+      <img src="hrclogo.svg" alt="Italian Trulli" style="text-align: center" />
+    </p>
+
+    <table id="Table2">
+      <tr>
+        <th>Sl No</th>
+        <th>Customer Order ID</th>
+        <th>Sales Org</th>
+        <th>Distribution channel</th>
+        <th>Company Code</th>
+        <th>Order Creation Date</th>
+        <th>Order Currency</th>
+        <th>Customer Number</th>
+        <th>Amount in USD</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>963432061</td>
+        <td>3449</td>
+        <td>Martinique</td>
+        <td>3220</td>
+        <td>01-01-2022</td>
+        <td>EUR</td>
+        <td>12311807</td>
+        <td>892.525050666667</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>971991639</td>
+        <td>3238</td>
+        <td>Moldova</td>
+        <td>3260</td>
+        <td>01-01-2022</td>
+        <td>EUR</td>
+        <td>12118758</td>
+        <td>76508.336474</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>754349803</td>
+        <td>3911</td>
+        <td>United Arab Emirates</td>
+        <td>3290</td>
+        <td>01-01-2022</td>
+        <td>EUR</td>
+        <td>1210499770</td>
+        <td>1593.27329266667</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>930253442</td>
+        <td>2381</td>
+        <td>Greece</td>
+        <td>3290</td>
+        <td>01-01-2022</td>
+        <td>EUR</td>
+        <td>1210351400</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>819741436</td>
+        <td>3605</td>
+        <td>Argentina</td>
+        <td>3290</td>
+        <td>01-01-2022</td>
+        <td>EUR</td>
+        <td>1210124309</td>
+        <td>1207.622577</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>881355361</td>
+        <td>3645</td>
+        <td>Armenia</td>
+        <td>3470</td>
+        <td>02-01-2022</td>
+        <td>EUR</td>
+        <td>12311152</td>
+        <td>343.59342</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>821659852</td>
+        <td>2470</td>
+        <td>United States of America</td>
+        <td>3220</td>
+        <td>02-01-2022</td>
+        <td>EUR</td>
+        <td>1230021722</td>
+        <td>9508.17216133333</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>957194828</td>
+        <td>3150</td>
+        <td>United States Minor Outlying Islands</td>
+        <td>3290</td>
+        <td>02-01-2022</td>
+        <td>EUR</td>
+        <td>1210183107</td>
+        <td>619.28502</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>806322513</td>
+        <td>3396</td>
+        <td>Serbia</td>
+        <td>3290</td>
+        <td>02-01-2022</td>
+        <td>EUR</td>
+        <td>1210499770</td>
+        <td>619.28502</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>922237131</td>
+        <td>2353</td>
+        <td>Turks and Caicos Islands</td>
+        <td>3290</td>
+        <td>02-01-2022</td>
+        <td>EUR</td>
+        <td>1210111951</td>
+        <td>638.435942666667</td>
+      </tr>
+    </table>
+  </body>
+</html>

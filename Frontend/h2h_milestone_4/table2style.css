@@ -1,0 +1,32 @@
+#Table2 {
+    font-family: 'Comic Sans MS', cursive;
+    border-collapse: collapse;
+    width: 90%;
+
+  }
+
+  #Table2 td{
+    border: 1px solid #29c55d;
+    text-align: center;
+    padding: 3px;
+  }
+  #Table2 th {
+    border: 1px solid #4dc3fe;
+    text-align: center;
+    padding: 3px;
+  }
+
+
+  #Table2 tr:nth-child(odd){
+    background-color: #fffefe;
+}
+
+  /* #Table2 tr:hover {background-color: #ddd;} */
+
+  #Table2 th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4dc3fe;
+    color: white;
+  }

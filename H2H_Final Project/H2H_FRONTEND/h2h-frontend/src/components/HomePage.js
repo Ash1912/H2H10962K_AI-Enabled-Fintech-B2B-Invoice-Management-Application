@@ -64,7 +64,7 @@ export default function HomePage() {
   const fetchInvoiceeData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/h2h_backend/DisplayServlet`,
+        `http://localhost:8080/h2h_milestone_3/InvoiceData`,
         { method: "GET" }
       );
       if (response.ok) {
@@ -141,7 +141,7 @@ export default function HomePage() {
             onClick={handleClickOpen}
             className={advancedbtn ? "advanced-btn" : "advanced-btn-inactive"}
           >
-            Advanced Search
+            ADVANCED SEARCH
           </button>
 
           <Dialog

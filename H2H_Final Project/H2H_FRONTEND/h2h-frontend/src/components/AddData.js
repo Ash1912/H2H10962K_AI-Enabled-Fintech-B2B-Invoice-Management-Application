@@ -4,7 +4,7 @@ import "../styles/AddData.css";
 
 const AddData = () => {
   const [formData, setFormData] = useState({
-    customerOrderId: "",
+    customerOrderID: "",
     salesOrg: "",
     distributionChannel: "",
     customerNumber: "",
@@ -25,7 +25,7 @@ const AddData = () => {
       formParams.append(key, formData[key]);
     }
     axios
-      .post("http://localhost:8080/h2h_milestone_3/add", formParams)
+      .post("http://localhost:8080/h2h_milestone_3/addInvoice", formParams)
       .then((response) => {
         // Handle success response
 
@@ -39,7 +39,7 @@ const AddData = () => {
 
   const clearForm = () => {
     setFormData({
-      customerOrderId: "",
+      customerOrderID: "",
       salesOrg: "",
       distributionChannel: "",
       customerNumber: "",
@@ -57,9 +57,9 @@ const AddData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Customer Order ID"
-            name="customerOrderId"
-            value={formData.customerOrderId}
+            placeholder="CUSTOMER ORDER ID"
+            name="customerOrderID"
+            value={formData.customerOrderID}
             onChange={handleChange}
           />
         </div>
@@ -67,7 +67,7 @@ const AddData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Sales Org"
+            placeholder="SALES ORG"
             name="salesOrg"
             value={formData.salesOrg}
             onChange={handleChange}
@@ -77,7 +77,7 @@ const AddData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Distribution Channel"
+            placeholder="DISTRIBUTION CHANNEL"
             name="distributionChannel"
             value={formData.distributionChannel}
             onChange={handleChange}
@@ -87,7 +87,7 @@ const AddData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Customer Number"
+            placeholder="CUSTOMER NUMBER"
             name="customerNumber"
             value={formData.customerNumber}
             onChange={handleChange}
@@ -97,7 +97,7 @@ const AddData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Company Code"
+            placeholder="COMPANY CODE"
             name="companyCode"
             value={formData.companyCode}
             onChange={handleChange}
@@ -107,7 +107,7 @@ const AddData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Order Currency"
+            placeholder="ORDER CURRENCY"
             name="orderCurrency"
             value={formData.orderCurrency}
             onChange={handleChange}
@@ -117,7 +117,7 @@ const AddData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Amount in USD"
+            placeholder="AMOUNT IN USD"
             name="amountInUsd"
             value={formData.amountInUsd}
             onChange={handleChange}
@@ -127,7 +127,7 @@ const AddData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Order Creation Date"
+            placeholder="ORDER CREATION DATE"
             name="orderCreationDate"
             value={formData.orderCreationDate}
             onChange={handleChange}

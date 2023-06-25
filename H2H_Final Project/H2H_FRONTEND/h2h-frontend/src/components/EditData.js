@@ -4,8 +4,8 @@ import "../styles/AddData.css";
 
 const EditData = () => {
   const [formData, setFormData] = useState({
-    slno: "",
-    customerOrderId: "",
+    slNo: "",
+    customerOrderID: "",
     salesOrg: "",
     distributionChannel: "",
     customerNumber: "",
@@ -26,7 +26,7 @@ const EditData = () => {
       formParams.append(key, formData[key]);
     }
     axios
-      .post(`http://localhost:8080/h2h_milestone_3/edit`, formParams)
+      .post(`http://localhost:8080/h2h_milestone_3/updateInvoice`, formParams)
       .then((response) => {
         if (response.data === "EDITED SUCCESSFULLY") {
           alert("Data updated successfully");
@@ -42,8 +42,8 @@ const EditData = () => {
 
   const clearForm = () => {
     setFormData({
-      slno: "",
-      customerOrderId: "",
+      slNo: "",
+      customerOrderID: "",
       salesOrg: "",
       distributionChannel: "",
       customerNumber: "",
@@ -61,9 +61,9 @@ const EditData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="SLNO"
-            name="slno"
-            value={formData.slno}
+            placeholder="SL NO"
+            name="slNo"
+            value={formData.slNo}
             onChange={handleChange}
           />
         </div>
@@ -71,9 +71,9 @@ const EditData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Customer Order ID"
-            name="customerOrderId"
-            value={formData.customerOrderId}
+            placeholder="CUSTOMER ORDER ID"
+            name="customerOrderID"
+            value={formData.customerOrderID}
             onChange={handleChange}
           />
         </div>
@@ -81,7 +81,7 @@ const EditData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Sales Org"
+            placeholder="SALES ORG"
             name="salesOrg"
             value={formData.salesOrg}
             onChange={handleChange}
@@ -91,7 +91,7 @@ const EditData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Distribution Channel"
+            placeholder="DISTRIBUTION CHANNEL"
             name="distributionChannel"
             value={formData.distributionChannel}
             onChange={handleChange}
@@ -101,7 +101,7 @@ const EditData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Customer Number"
+            placeholder="CUSTOMER NUMBER"
             name="customerNumber"
             value={formData.customerNumber}
             onChange={handleChange}
@@ -111,7 +111,7 @@ const EditData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Company Code"
+            placeholder="COMPANY CODE"
             name="companyCode"
             value={formData.companyCode}
             onChange={handleChange}
@@ -121,7 +121,7 @@ const EditData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Order Currency"
+            placeholder="ORDER CURRENCY"
             name="orderCurrency"
             value={formData.orderCurrency}
             onChange={handleChange}
@@ -131,7 +131,7 @@ const EditData = () => {
           <input
             type="number"
             className="inputbox"
-            placeholder="Amount in USD"
+            placeholder="AMOUNT IN USD"
             name="amountInUsd"
             value={formData.amountInUsd}
             onChange={handleChange}
@@ -141,7 +141,7 @@ const EditData = () => {
           <input
             type="text"
             className="inputbox"
-            placeholder="Order Creation Date"
+            placeholder="ORDER CREATION DATE"
             name="orderCreationDate"
             value={formData.orderCreationDate}
             onChange={handleChange}

@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-self: start;
+    background-color: #ffffff;
 }
 
 .upper {

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Management</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f3f3f3; text-align: center;">
+    <header style="background-color: #333; color: #fff; padding: 20px;">
+        <h1 style="margin: 0;">Invoice Management</h1>
+    </header>
+
+    <div id="invoiceContainer" style="margin: 20px auto; max-width: 800px; padding: 20px; background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <div id="buttonsContainer" style="margin-bottom: 20px;">
+            <button id="addInvoice" style="background-color: #4CAF50; color: #fff; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">Add Invoice</button>
+            <button id="deleteInvoice" style="background-color: #f44336; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Delete Selected</button>
+        </div>
+
+        <table id="invoiceTable" style="width: 100%;">
+                <tr>
+                    <th style="padding: 10px;">Sl_No</th>
+                    <th style="padding: 10px;">Customer Order ID</th>
+                    <th style="padding: 10px;">Sales Org</th>
+                    <th style="padding: 10px;">Distribution Channel</th>
+                    <th style="padding: 10px;">Company Code</th>
+                    <th style="padding: 10px;">Order Creation Date</th>
+                    <th style="padding: 10px;">Order Currency</th>
+                    <th style="padding: 10px;">Customer Number</th>
+                    <th style="padding: 10px;">Amount in USD</th>
+                </tr>
+        </table>
+    </div>
+
+    <div id="editInvoiceModal" style="display: none;">
+        <label for="editOrderCurrency" style="margin-right: 10px;">Order Currency:</label>
+        <input type="text" id="editOrderCurrency" style="padding: 5px; margin-right: 20px;">
+
+        <label for="editCompanyCode" style="margin-right: 10px;">Company Code:</label>
+        <input type="text" id="editCompanyCode" style="padding: 5px; margin-right: 20px;">
+
+        <label for="editDistributionChannel" style="margin-right: 10px;">Distribution Channel:</label>
+        <input type="text" id="editDistributionChannel" style="padding: 5px; margin-right: 20px;">
+
+        <button id="saveChanges" style="background-color: #4CAF50; color: #fff; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">Save Changes</button>
+        <button id="cancelChanges" style="background-color: #f44336; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Cancel</button>
+    </div>
+
+    <footer style="background-color: #333; color: #fff; padding: 20px;">
+        <h6 style="margin: 0; font-size: 14px;">
+            <a href="./" style="color: #fff; text-decoration: none;">Privacy Policy</a>
+            &nbsp;|&nbsp;
+            &copy; 2023 HighRadius Corporation. All rights reserved.
+        </h6>
+    </footer>
+
+    <script src="invoice_management.js"></script>
+</body>
+</html>

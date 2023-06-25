@@ -8,53 +8,27 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
 const columns = [
-  { field: "slno", headerName: "Sl.No", width: 90 },
-  { field: "customer_order_id", headerName: "Customer Order ID", width: 150 },
-  { field: "sales_org", headerName: "Sales Org", width: 150 },
+  { field: "slNo", headerName: "Sl No", width: 90 },
+  { field: "customerOrderID", headerName: "CUSTOMER ORDER ID", width: 180 },
+  { field: "salesOrg", headerName: "SALES ORG", width: 150 },
   {
-    field: "distribution_channel",
-    headerName: "Distribution Channel",
+    field: "distributionChannel",
+    headerName: "DISTRIBUTION CHANNEL",
     width: 180,
   },
-  { field: "division", headerName: "Division", width: 120 },
+
+  { field: "companyCode", headerName: "COMPANY CODE", width: 130 },
   {
-    field: "released_credit_value",
-    headerName: "Released Credit Value",
+    field: "orderCreationDate",
+    headerName: "ORDER CREATION DATE",
     width: 180,
   },
-  {
-    field: "purchase_order_type",
-    headerName: "Purchase Order Type",
-    width: 160,
-  },
-  { field: "company_code", headerName: "Company Code", width: 130 },
-  {
-    field: "order_creation_date",
-    headerName: "Order Creation Date",
-    width: 180,
-  },
-  {
-    field: "order_creation_time",
-    headerName: "Order Creation Time",
-    width: 180,
-  },
-  {
-    field: "credit_control_area",
-    headerName: "Credit Control Area",
-    width: 160,
-  },
-  { field: "sold_to_party", headerName: "Sold to Party", width: 150 },
-  { field: "order_amount", headerName: "Order Amount", width: 130 },
-  {
-    field: "requested_delivery_date",
-    headerName: "Requested Delivery Date",
-    width: 200,
-  },
-  { field: "order_currency", headerName: "Order Currency", width: 130 },
-  { field: "credit_status", headerName: "Credit Status", width: 120 },
-  { field: "customer_number", headerName: "Customer Number", width: 150 },
-  { field: "amount_in_usd", headerName: "Amount in USD", width: 150 },
-  { field: "unique_cust_id", headerName: "Unique Customer ID", width: 180 },
+  { field: "orderAmount", headerName: "ORDER AMOUNT", width: 130 },
+
+  { field: "orderCurrency", headerName: "ORDER CURRENCY", width: 150 },
+
+  { field: "customerNumber", headerName: "CUSTOMER NUMBER", width: 170 },
+  { field: "amountInUsd", headerName: "AMOUNT IN USD", width: 150 },
 ];
 
 const Datagrid = ({ rows }) => {
@@ -71,12 +45,12 @@ const Datagrid = ({ rows }) => {
 
   const handleDelete = async () => {
     try {
-      const slno = editData.slno;
+      const slNo = editData.slNo;
       const response = await fetch(
-        `http://localhost:8080/h2h_milestone_3/delete?slno=${slno}`
+        `http://localhost:8080/h2h_milestone_3/deleteInvoice?slNo=${slNo}`
       );
       if (response.ok) {
-        setDataRows(dataRows.filter((row) => row["Sl.No"] !== slno));
+        setDataRows(dataRows.filter((row) => row["Sl No"] !== slNo));
         setOpenDeleteDialog(false);
         alert("Deleted Successfully");
       } else {
@@ -118,7 +92,7 @@ const Datagrid = ({ rows }) => {
   const handleRefresh = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/h2h_milestone_3/read"
+        "http://localhost:8080/h2h_milestone_3/InvoiceData"
       );
       if (response.ok) {
         const newData = await response.json();
@@ -273,12 +247,12 @@ const Datagrid = ({ rows }) => {
               <DialogContentText>Delete Records?</DialogContentText>
               <p>Are you sure you want to delete the selected record?</p>
               <input
-                placeholder="Sl.No"
+                placeholder="Sl No"
                 className="edit-input"
                 type="text"
-                label="Sl.No"
-                name="slno"
-                value={editData.slno || ""}
+                label="Sl No"
+                name="slNo"
+                value={editData.slNo || ""}
                 onChange={handleInputChange}
               />
             </DialogContent>

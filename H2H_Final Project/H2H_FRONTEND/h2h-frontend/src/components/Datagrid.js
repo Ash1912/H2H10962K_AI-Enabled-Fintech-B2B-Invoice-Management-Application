@@ -39,7 +39,7 @@ const Datagrid = ({ rows }) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   // const handleSelectionChange = (newSelection) => {
-  //   setSelectedRows(newSelection.selection.map((row) => row["Sl.No"]));
+  //   setSelectedRows(newSelection.selection.map((row) => row["Sl No"]));
   //   console.log(newSelection.selection); // Log the selected rows
   // };
 

@@ -5,17 +5,13 @@ import "../styles/AddData.css";
 const EditData = () => {
   const [formData, setFormData] = useState({
     slNo: "",
-    customerOrderID: "",
-    salesOrg: "",
     distributionChannel: "",
-    customerNumber: "",
     companyCode: "",
     orderCurrency: "",
-    amountInUsd: "",
-    orderCreationDate: "",
   });
 
   const handleChange = (e) => {
+    // Update the form data state when input values change
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -42,15 +38,11 @@ const EditData = () => {
 
   const clearForm = () => {
     setFormData({
+      // Clear the form data state
       slNo: "",
-      customerOrderID: "",
-      salesOrg: "",
       distributionChannel: "",
-      customerNumber: "",
       companyCode: "",
       orderCurrency: "",
-      amountInUsd: "",
-      orderCreationDate: "",
     });
   };
 
@@ -67,26 +59,7 @@ const EditData = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="inp2 ">
-          <input
-            type="number"
-            className="inputbox"
-            placeholder="CUSTOMER ORDER ID"
-            name="customerOrderID"
-            value={formData.customerOrderID}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="inp3 ">
-          <input
-            type="number"
-            className="inputbox"
-            placeholder="SALES ORG"
-            name="salesOrg"
-            value={formData.salesOrg}
-            onChange={handleChange}
-          />
-        </div>
+
         <div className="inp4">
           <input
             type="text"
@@ -97,16 +70,7 @@ const EditData = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="inp5">
-          <input
-            type="text"
-            className="inputbox"
-            placeholder="CUSTOMER NUMBER"
-            name="customerNumber"
-            value={formData.customerNumber}
-            onChange={handleChange}
-          />
-        </div>
+
         <div className="inp6 ">
           <input
             type="text"
@@ -124,26 +88,6 @@ const EditData = () => {
             placeholder="ORDER CURRENCY"
             name="orderCurrency"
             value={formData.orderCurrency}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="inp8 ">
-          <input
-            type="number"
-            className="inputbox"
-            placeholder="AMOUNT IN USD"
-            name="amountInUsd"
-            value={formData.amountInUsd}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="inp9 ">
-          <input
-            type="text"
-            className="inputbox"
-            placeholder="ORDER CREATION DATE"
-            name="orderCreationDate"
-            value={formData.orderCreationDate}
             onChange={handleChange}
           />
         </div>

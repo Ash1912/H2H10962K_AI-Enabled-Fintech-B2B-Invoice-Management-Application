@@ -19,6 +19,9 @@ export default function HomePage() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
 
+// Above line import necessary dependencies and components for Homepage. Component also defines the several state
+// by using the useState hook. useState is used to initialize the initial value as the argument
+
   const handleClickOpen = () => {
     //open adv search dialogbox
     setOpen(true);
@@ -49,8 +52,10 @@ export default function HomePage() {
     setFilteredRows([]); // Clear the filtered rows
   };
 
+//useEffect is used for filtering the rows based on the search values
+
   useEffect(() => {
-    //triggered for changes in searchValue
+    //triggered for changes in searchValue or row state changes
     if (searchValue.length > 0) {
       const filtered = rows.filter((row) =>
         row.customer_order_id.toLowerCase().includes(searchValue.toLowerCase())
